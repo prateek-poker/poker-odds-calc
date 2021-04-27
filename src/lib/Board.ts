@@ -78,9 +78,12 @@ export default class Board {
   getResult(): Result {
 
     let ts = Date.now();
-    let ranks: { [key: string]: number } = {};
+    let ranks: { [key: string]: object } = {};
     for (let type in HandValueTypes)
-      ranks[type] = 0;
+      ranks[type] = {
+        rank: 0,
+        hand: []
+      }
 
     const players = this.table.getPlayersInHand();
     const _players: Array<any> = players.map((p, i) => {
@@ -103,7 +106,8 @@ export default class Board {
       const tie = result.filter((rank: any) => rank.points === top_score).length > 1;
 
       for (let i = 0, j = _players.length; i < j; i++) {
-        _players[i].ranks[result[i].rank.str]++;
+        _players[i].ranks[result[i].rank.str].rank++;
+        _players[i].ranks[result[i].rank.str].hand = result[i].hand;
         if (result[i].points === top_score) {
           if (tie)
             _players[i].ties++;

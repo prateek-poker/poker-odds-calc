@@ -84,8 +84,8 @@ export default class Table {
   }
 
   calculate() {
-    if (this.players.filter(player => player.inHand()).length < 2)
-      throw new Error("Minimum 2 players required");
+    // if (this.players.filter(player => player.inHand()).length < 2)
+    //   throw new Error("Minimum 2 players required");
 
     return this.board.getResult();
   }
